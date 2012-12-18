@@ -1,0 +1,4 @@
+#!/bin/sh -e
+
+mkdir -p lib
+gcc -fPIC -shared -Wall -pedantic -o lib/libmediainfo_go.so -Ic c/mediainfo_go.c -ldl
