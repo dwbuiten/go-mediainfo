@@ -35,15 +35,15 @@ func main() {
     mediainfo.Init()
 
     /* Open and parse the file. */
-    handle, err := mediainfo.Open(args[0])
+    info, err := mediainfo.Open(args[0])
     if err != nil {
         fmt.Println(err)
         return
     }
-    defer mediainfo.Close(handle)
+    defer info.Close()
 
     /* Get the info. */
-    val, err := mediainfo.Get(handle, args[1], mediainfo.Video)
+    val, err := info.Get(args[1], mediainfo.Video)
     if err != nil {
         fmt.Println(err);
         return

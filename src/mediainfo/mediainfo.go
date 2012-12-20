@@ -35,7 +35,9 @@ const (
 )
 
 /* Dont expose this ugliness. */
-type MediaInfo unsafe.Pointer
+type MediaInfo struct {
+    ptr unsafe.Pointer
+}
 
 /* Loas the shared library. */
 func Init() {
@@ -49,13 +51,17 @@ func Init() {
  * and returns a MediaInfo handler.
  */
 func Open(file string) (MediaInfo, error) {
+    var ret MediaInfo
+
     cfile := C.CString(file)
 
-    cptr := C.mediainfo_c_open(cfile)
+    cptr   := C.mediainfo_c_open(cfile)
+    ret.ptr = cptr
     if cptr == nil {
-        return nil, errors.New("Cannot open file.")
+        return ret, errors.New("Cannot open file.")
     }
-    return MediaInfo(cptr), nil
+
+    return ret, nil
 }
 
 /*
@@ -66,13 +72,12 @@ func Open(file string) (MediaInfo, error) {
  *
  * Only handles one video and audio stream currently.
  *
- * Takes a MediaInfo handler, a key, and a stream type as
- * an argument. Valid stream types are mediainfo.Video and
- * mediainfo.Audio.
+ * Takes a key, and a stream type as an arguments. Valid
+ * stream types are mediainfo.Video and mediainfo.Audio.
  */
-func Get(handle MediaInfo, key string, typ uint32) (string, error) {
+func (handle MediaInfo) Get(key string, typ uint32) (string, error) {
     ckey  := C.CString(key)
-    cptr  := unsafe.Pointer(handle)
+    cptr  := unsafe.Pointer(handle.ptr)
 
     cret := C.mediainfo_c_get(cptr, ckey, typ)
     ret  := C.GoString(cret)
@@ -84,8 +89,8 @@ func Get(handle MediaInfo, key string, typ uint32) (string, error) {
 }
 
 /* Close a handle. */
-func Close(handle MediaInfo) {
-    cptr  := unsafe.Pointer(handle)
+func (handle MediaInfo) Close() {
+    cptr  := unsafe.Pointer(handle.ptr)
 
     C.mediainfo_c_close(cptr)
 }
