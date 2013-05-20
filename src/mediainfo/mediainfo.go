@@ -31,8 +31,8 @@ import (
 
 const (
     General = C.MediaInfo_Stream_General
-    Video = C.MediaInfo_Stream_Video
-    Audio = C.MediaInfo_Stream_Audio
+    Video   = C.MediaInfo_Stream_Video
+    Audio   = C.MediaInfo_Stream_Audio
 )
 
 /* Dont expose this ugliness. */
