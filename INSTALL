@@ -4,7 +4,7 @@ to your GOPATH.
 So, to build the example:
     ./build
     cd example
-    GOPATH=.. go build
+    GOPATH=$(dirname $(pwd)) go build
 
 And to run it, either put libmediainfo_go somewhere it can
 be seen, or:
