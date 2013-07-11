@@ -33,6 +33,7 @@ const (
     General = C.MediaInfo_Stream_General
     Video   = C.MediaInfo_Stream_Video
     Audio   = C.MediaInfo_Stream_Audio
+    Image   = C.MediaInfo_Stream_Image
 )
 
 /* Dont expose this ugliness. */
