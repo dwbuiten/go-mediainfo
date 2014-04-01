@@ -56,6 +56,7 @@ func Open(file string) (MediaInfo, error) {
     var ret MediaInfo
 
     cfile := C.CString(file)
+    defer C.free(unsafe.Pointer(cfile))
 
     cptr   := C.mediainfo_c_open(cfile)
     ret.ptr = cptr
@@ -80,6 +81,7 @@ func Open(file string) (MediaInfo, error) {
 func (handle MediaInfo) Get(key string, typ uint32) (string, error) {
     ckey  := C.CString(key)
     cptr  := unsafe.Pointer(handle.ptr)
+    defer C.free(unsafe.Pointer(ckey))
 
     cret := C.mediainfo_c_get(cptr, ckey, typ)
     ret  := C.GoString(cret)
