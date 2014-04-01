@@ -22,8 +22,6 @@
 
 #include <MediaInfoDLL/MediaInfoDLL.h>
 
-#include "mediainfo_go.h"
-
 void mediainfo_c_init()
 {
     MediaInfoDLL_Load();
