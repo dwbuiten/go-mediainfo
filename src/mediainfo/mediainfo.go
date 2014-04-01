@@ -19,6 +19,7 @@ package mediainfo
 /*
  #cgo CFLAGS: -I../../c
  #cgo LDFLAGS: -L../../lib -lmediainfo_go
+ #include <stdlib.h>
  #include <MediaInfoDLL/MediaInfoDLL.h>
  #include "mediainfo_go.h"
 */
