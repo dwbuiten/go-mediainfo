@@ -4,6 +4,7 @@
  * tiny wrapper.
  * */
 
+#include <stddef.h>
 #include <MediaInfoDLL/MediaInfoDLL.h>
 
 void mediainfo_c_init()
@@ -27,10 +28,11 @@ void *mediainfo_c_open(char *filename)
     return handle;
 }
 
-char *mediainfo_c_get(void *opaque, char *key, enum MediaInfo_stream_t type)
+char *mediainfo_c_get(void *opaque, char *key,
+                      size_t stream, enum MediaInfo_stream_t type)
 {
-    return (char *) MediaInfo_Get(opaque, type, 0, key, MediaInfo_Info_Text,
-                                  MediaInfo_Info_Name);
+    return (char *) MediaInfo_Get(opaque, type, stream, key,
+                                  MediaInfo_Info_Text, MediaInfo_Info_Name);
 }
 
 void mediainfo_c_close(void *opaque)

@@ -58,15 +58,15 @@ func Open(file string) (MediaInfo, error) {
  *
  * Only handles one video and audio stream currently.
  *
- * Takes a key, and a stream type as an arguments. Valid
- * stream types are mediainfo.Video and mediainfo.Audio.
+ * Takes a key, a stream number, and a stream type as 
+ * arguments.
  */
-func (handle MediaInfo) Get(key string, typ uint32) (string, error) {
+func (handle MediaInfo) Get(key string, stream int, typ uint32) (string, error) {
     ckey  := C.CString(key)
     cptr  := unsafe.Pointer(handle.ptr)
     defer C.free(unsafe.Pointer(ckey))
 
-    cret := C.mediainfo_c_get(cptr, ckey, typ)
+    cret := C.mediainfo_c_get(cptr, ckey, C.size_t(stream), typ)
     ret  := C.GoString(cret)
     if len(ret) == 0 {
         return "", errors.New("Cannot get value for key.")

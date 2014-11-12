@@ -27,7 +27,7 @@ func main() {
     defer info.Close()
 
     /* Get the info. */
-    val, err := info.Get(args[1], mediainfo.Video)
+    val, err := info.Get(args[1], 0, mediainfo.Video)
     if err != nil {
         fmt.Println(err);
         return
