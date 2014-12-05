@@ -1,7 +1,8 @@
 package mediainfo
 
 /*
- #cgo LDFLAGS: -ldl
+ #cgo linux LDFLAGS: -ldl
+ #cgo darwin LDFLAGS: -framework CoreFoundation
  #include <stdlib.h>
  #include "c/mediainfo_wrapper.c"
 */
