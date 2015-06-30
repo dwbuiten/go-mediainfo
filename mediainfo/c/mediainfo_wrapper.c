@@ -38,4 +38,5 @@ char *mediainfo_c_get(void *opaque, char *key,
 void mediainfo_c_close(void *opaque)
 {
     MediaInfo_Close(opaque);
+    MediaInfo_Delete(opaque);
 }
